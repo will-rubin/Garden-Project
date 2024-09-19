@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Project</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <h1>Garden Tracker - Plant Management</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="account-management.html">Account</a>
+            <a href="plant-management.html">Plants</a>
+            <a href="garden-management.html">Garden</a>   
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Add a plant to our database</h2>
+            <hr>
+            <form action="plant-management.html" method="post">
+                <label for="plant-name">Plant Name</label>
+                <input type="text" id="plant-name" name="plant-name" required>
+                <label for="plant-type">Plant Type</label>
+                <input type="text" id="plant-type" name="plant-type" required>
+                <label for="plant-variety">Plant Variety</label>
+                <input type="text" id="plant-variety" name="plant-variety" required>
+                <label for="plant-description">Plant Description</label>
+                <input type="text" id="plant-description" name="plant-description" required>
+                <button class="button" type="submit">Add Plant</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

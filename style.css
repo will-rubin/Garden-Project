@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+    padding: 0px;
+    height: 100%;
+    font-family: 'Roboto', sans-serif;
+}
+
+header {
+    background: rgb(16,140,108);
+    background: linear-gradient(0deg, rgba(16,140,108,1) 0%, rgba(129,242,150,1) 100%);
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+header h1 {
+    color: white;
+    font-weight: 700;
+    text-align: center;
+}
+
+nav {
+    text-align: center;
+    height: 3em;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    cursor: pointer;
+    transition-duration: .5s;
+    padding: 1% 10% 1% 10%;
+    border-radius: 12px;
+}
+
+nav a:hover {
+    background-color: #1e5f5d;
+    text-shadow: 0px 0px 10px white;
+}
+
+main {
+    margin: 10em 0 0 0;
+    padding: 1em;
+}
+
+section {
+    margin: auto auto 2em auto;
+    padding: 1em;
+    border-radius: 12px;
+    background-color: #dadada;
+    text-align: center;
+    width: 15%;
+
+}
+
+section form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form label {
+    padding: .35em;
+    border-radius: 12px;
+    font-weight: 700;
+    margin: .1em;
+}
+
+.button {
+    margin-top: 1em;
+    padding: .5em 1em;
+    border-radius: 12px;
+    background-color: rgb(16,140,108);
+    cursor: pointer;
+    color: white;
+    font-weight: 700;
+    transition: .5s;
+    outline: none;
+    display: inline-block;
+    border: none;
+}
+
+.button:hover {
+    background-color: #1e5f5d;
+}
+
+.button:active {
+    transform: translateY(2px);
+    background-color: rgba(129,242,150,1);
+}
+
+div {
+    display: block;
+}
+
+.background-image {
+    background-image: url(../images/farmland-overhead.jpg);
+    background-size: cover;
+    height: 300px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}

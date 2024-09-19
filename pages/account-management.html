@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garden Project</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <header>
+        <h1>Garden Tracker - Account Management</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="account-management.html">Account</a>
+            <a href="plant-management.html">Plants</a>
+            <a href="garden-management.html">Garden</a>   
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h2>Log in to your account</h2>
+            <hr>
+            <form action="account-management.html" method="post">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <button class="button" type="submit">Log In</button>
+            </form>
+        </section>
+        <section>
+            <h2>Register a new account</h2>
+            <hr>
+            <form action="account-management.html" method="post">
+                <label for="new-firstname">First Name</label>
+                <input type="text" id="new-firstname" name="new-firstname" required>
+                <label for="new-lastname">Last Name</label>
+                <input type="text" id="new-lastname" name="new-lastname" required>
+                <label for="new-username">Username</label>
+                <input type="text" id="new-username" name="new-username" required>
+                <label for="new-password">Password</label>
+                <input type="text" id="new-password" name="new-password" required>
+                <label for="new-confirmpassword">Confirm Password</label>
+                <input type="text" id="new-confirmpassword" name="new-confirmpassword" required>
+                <button class="button" type="submit">Register</button>
+            </form>
+        </section>
+    </main>
+</body>
+</html>
