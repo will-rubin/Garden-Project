@@ -17,34 +17,44 @@
         </nav>
     </header>
     <main>
-        <section>
+        <div id="greeting"></div>
+        <section id="login">
             <h2>Log in to your account</h2>
             <hr>
-            <form action="account-management.html" method="post">
+            <form id="login-form">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required>
+
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" required>
-                <button class="button" type="submit">Log In</button>
+
+                <button class="button" id="login-submit">Log In</button>
             </form>
         </section>
-        <section>
+        <section id="register">
             <h2>Register a new account</h2>
             <hr>
-            <form action="account-management.html" method="post">
+            <form id="register-form">
                 <label for="new-firstname">First Name</label>
                 <input type="text" id="new-firstname" name="new-firstname" required>
+
                 <label for="new-lastname">Last Name</label>
                 <input type="text" id="new-lastname" name="new-lastname" required>
+
                 <label for="new-username">Username</label>
                 <input type="text" id="new-username" name="new-username" required>
+
                 <label for="new-password">Password</label>
-                <input type="text" id="new-password" name="new-password" required>
+                <input type="password" id="new-password" name="new-password" required>
+
                 <label for="new-confirmpassword">Confirm Password</label>
-                <input type="text" id="new-confirmpassword" name="new-confirmpassword" required>
-                <button class="button" type="submit">Register</button>
+                <input type="password" id="new-confirmpassword" name="new-confirmpassword" required>
+
+                <button class="button" id="register-submit">Register</button>
             </form>
         </section>
     </main>
+    <script src="../scripts/register.js"></script>
+    <script src="../scripts/login.js"></script>
 </body>
 </html>
