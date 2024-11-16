@@ -11,3 +11,19 @@ Detailing the parameters and type requirements of the entities of the site.
 ## Relationship Diagram
 Here we see how the various entities that comprise the site relate to each other. The user and the garden entity tend to receive and generate the most action, while the plants are used mainly as a reference.
 ![alt text](./images/relationships-diagram.png)
+
+## MySQL Database Tables
+Overall view of the database tables
+![alt text](./images/overall-tables.png)
+
+Gardens table
+![alt text](./images/gardens-table.png)
+
+Garden members table
+![alt text](./images/garden-members.png)
+
+Plants table
+![alt text](./images/plants-table.png)
+
+Users table
+![alt text](./images/user-table.png)
