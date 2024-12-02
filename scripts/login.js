@@ -1,5 +1,7 @@
-let loginForm = document.getElementById("login-form")
-loginForm.addEventListener("submit", login);
+let loginForm = document.getElementById("login-form");
+if(loginForm) {
+    loginForm.addEventListener("submit", login);
+}
 
 function login(e) {
     e.preventDefault();
