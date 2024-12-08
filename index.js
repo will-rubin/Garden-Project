@@ -2,10 +2,10 @@ const express = require("express")
 const app = express()
 const path = require('path')
 
-app.use(express.json()); // parses JSON bodies
-
 const userRoutes = require("./server/routes/user")
-const gardenRoutes = require("./server/routes/garden")
+//const gardenRoutes = require("./server/routes/garden")
+
+app.use(express.json()); // parses JSON bodies
 
 //CORS middleware
 app.use(function(req, res, next) {
@@ -19,7 +19,7 @@ app.use(express.static(__dirname + "/client"))
 app.get('/', (req, res) => res.sendFile(path.join(__dirname + "../client/pages/index.html")))
 
 app.use('/users', userRoutes)
-app.use('/gardens', gardenRoutes)
+//app.use('/gardens', gardenRoutes)
 
 const PORT = process.env.PORT || 3000
 
