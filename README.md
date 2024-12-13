@@ -23,7 +23,7 @@ Garden members table
 ![alt text](./images/garden-members.png)
 
 Plants table
-![alt text](./images/plants-table.png)
+![alt text](./images/plant-table.png)
 
 Users table
 ![alt text](./images/user-table.png)

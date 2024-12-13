@@ -1,5 +1,5 @@
 let registerForm = document.getElementById("register-form")
-registerForm.addEventListener("submit", register);
+registerForm.addEventListener("register-submit", register);
 
 function register(e) {
     e.preventDefault();

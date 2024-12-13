@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garden Project</title>
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
@@ -17,10 +17,11 @@
         </nav>
     </header>
     <main>
+        <div id="greeting"></div>
         <section>
             <h2>Add a plant to our database</h2>
             <hr>
-            <form action="plant-management.html" method="post">
+            <form id="add-plant-form">
                 <label for="plant-name">Plant Name</label>
                 <input type="text" id="plant-name" name="plant-name" required>
                 <label for="plant-type">Plant Type</label>
@@ -33,5 +34,6 @@
             </form>
         </section>
     </main>
+    <script src="../scripts/addPlant.js"></script>
 </body>
 </html>
