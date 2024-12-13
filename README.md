@@ -14,16 +14,16 @@ Here we see how the various entities that comprise the site relate to each other
 
 ## MySQL Database Tables
 Overall view of the database tables
-![alt text](./images/overall-tables.png)
+![alt text](./client/images/overall-tables.png)
 
 Gardens table
-![alt text](./images/gardens-table.png)
+![alt text](./client/images/gardens-table.png)
 
 Garden members table
-![alt text](./images/garden-members.png)
+![alt text](./client/images/garden-members.png)
 
 Plants table
-![alt text](./images/plant-table.png)
+![alt text](./client/images/plant-table.png)
 
 Users table
-![alt text](./images/user-table.png)
+![alt text](./client/images/user-table.png)
