@@ -3,9 +3,10 @@ const app = express()
 const path = require('path')
 
 const userRoutes = require("./server/routes/user")
-//const gardenRoutes = require("./server/routes/garden")
+const gardenRoutes = require("./server/routes/garden")
+const plantRoutes = require("./server/routes/plant")
 
-app.use(express.json()); // parses JSON bodies
+app.use(express.json()); 
 
 //CORS middleware
 app.use(function(req, res, next) {
@@ -16,11 +17,12 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.static(__dirname + "/client"))
-app.get('/', (req, res) => res.sendFile(path.join(__dirname + "../client/pages/index.html")))
+app.get('/', (req, res) => res.sendFile(path.join(__dirname + "/client/pages/index.html")))
 
 app.use('/users', userRoutes)
-//app.use('/gardens', gardenRoutes)
+app.use('/gardens', gardenRoutes)
+app.use('/plants', plantRoutes)
 
 const PORT = process.env.PORT || 3000
 
-app.listen(PORT, () => console.log(`Server started!! Listening on port ${PORT}!!! :)`))
+app.listen(PORT, () => console.log(`Server started! Listening on port ${PORT}! :)`))
