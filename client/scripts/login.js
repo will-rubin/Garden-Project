@@ -3,13 +3,22 @@ if(loginForm) {
     loginForm.addEventListener("submit", login);
 }
 
-function login(e) {
+async function login(e) {
     e.preventDefault();
     const user = {
         userName: document.getElementById("username").value,
         password: document.getElementById("password").value
     }
-    console.log(user)
-    let greeting = document.getElementById("greeting")
-    greeting.innerHTML = `Welcome ${user.userName}!!`
+    
+    try {
+        await fetch("/user/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        });
+    } catch(error) {
+        console.error(error);
+    }
 }

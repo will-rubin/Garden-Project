@@ -74,9 +74,10 @@ async function registerUser(username, password, email, location) {
     let sql = `INSERT INTO users (username, password, email, location, date_created) VALUES (?, ?, ?, ?, ?)`;
     let date = new Date().toISOString().slice(0, 19).replace('T', ' ');
     // Hash the user's password
-    let hashedPassword = await bcrypt.hash(password, 10);
+    //const saltRounds = 10;
+    //let hashedPassword = await bcrypt.hash(password, saltRounds);
     // Assemble params
-    let params = [username, hashedPassword, email, location, date];
+    let params = [username, password, email, location, date];
     // Execute the query
     return await con.query(sql, params);
 }
