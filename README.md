@@ -6,11 +6,11 @@ Users may upload plants to the database, and then arrange gardens consisting of 
 
 ## Entity Relationship Diagram
 Detailing the parameters and type requirements of the entities of the site.
-![alt text](./images/erd.png)
+![alt text](./client/images/erd.png)
 
 ## Relationship Diagram
 Here we see how the various entities that comprise the site relate to each other. The user and the garden entity tend to receive and generate the most action, while the plants are used mainly as a reference.
-![alt text](./images/relationships-diagram.png)
+![alt text](./client/images/relationships-diagram.png)
 
 ## MySQL Database Tables
 Overall view of the database tables
