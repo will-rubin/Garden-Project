@@ -4,21 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Garden Project</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/pages/style.css">
 </head>
 <body>
     <header>
         <h1>Garden Tracker - Plant Management</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="account-management.html">Account</a>
-            <a href="plant-management.html">Plants</a>
-            <a href="garden-management.html">Garden</a>   
+            <a href="/">Home</a>
+            <a href="account-management">Account</a>
+            <a href="plant-management">Plants</a>
+            <a href="garden-management">Garden</a>   
         </nav>
     </header>
     <main>
-        <div id="greeting"></div>
-        <section>
+        <section id="add-plant">
             <h2>Add a plant to our database</h2>
             <hr>
             <form id="add-plant-form">
@@ -26,14 +25,47 @@
                 <input type="text" id="plant-name" name="plant-name" required>
                 <label for="plant-type">Plant Type</label>
                 <input type="text" id="plant-type" name="plant-type" required>
-                <label for="plant-variety">Plant Variety</label>
-                <input type="text" id="plant-variety" name="plant-variety" required>
-                <label for="plant-description">Plant Description</label>
-                <input type="text" id="plant-description" name="plant-description" required>
+                <label for="sun-level">Sun Level</label>
+                <input type="number" id="sun-level" name="sun-level" required>
+                <label for="water-level">Water Level</label>
+                <input type="number" id="water-level" name="water-level" required>
+                <label for="days-to-maturity">Days to Maturity</label>
+                <input type="number" id="days-to-maturity" name="days-to-maturity" required>
+                <label for="edible">Edible</label>
+                <input type="text" id="edible" name="edible" required>
+                <label for="avg-height">Average Height</label>
+                <input type="number" id="avg-height" name="avg-height" required>
+                <label for="uploader-id">Uploader ID</label>
+                <input type="number" id="uploader-id" name="uploader-id" required>
                 <button class="button" type="submit">Add Plant</button>
             </form>
         </section>
+        <section id="plant-display">
+            <h2>Plants in our database</h2>
+            <hr>
+            <div id="plant-list">
+                <!-- Plants will be displayed here -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Plant Name</th>
+                            <th>Plant Type</th>
+                            <th>Sun Level</th>
+                            <th>Water Level</th>
+                            <th>Days to Maturity</th>
+                            <th>Edible</th>
+                            <th>Average Height</th>
+                            <th>Uploader ID</th>
+                        </tr>
+                    </thead>
+                    <tbody id="plant-table-body">
+                        <!-- Plant entries will be dynamically inserted here -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
     <script src="../scripts/addPlant.js"></script>
+    <script src="../scripts/getPlants.js"></script>
 </body>
 </html>

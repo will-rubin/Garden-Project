@@ -3,16 +3,33 @@ if(addPlantForm) {
     addPlantForm.addEventListener("submit", addPlant);
 }
 
-function addPlant(e) {
+async function addPlant(e) {
     e.preventDefault();
     const plant = {
-        name: document.getElementById("plant-name").value,
-        type: document.getElementById("plant-type").value,
-        variety: document.getElementById("plant-variety").value,
-        description: document.getElementById("plant-description").value
+        plant_name: document.getElementById("plant-name").value,
+        plant_type: document.getElementById("plant-type").value,
+        sun_level: document.getElementById("sun-level").value,
+        water_level: document.getElementById("water-level").value,
+        days_to_maturity: document.getElementById("days-to-maturity").value,
+        edible: document.getElementById("edible").value,
+        avg_height: document.getElementById("avg-height").value,
+        uploader_id: document.getElementById("uploader-id").value
     }
 
-    console.log(plant);
-    let greeting = document.getElementById("greeting");
-    greeting.innerHTML = `You have added ${plant.name}!!`
+    try {
+        await fetch("/plants/createPlant", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(plant)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
+    }
+    catch(error) {
+        console.error(error);
+    }
 }
