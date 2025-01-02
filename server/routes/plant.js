@@ -16,6 +16,7 @@ router
     try {
         const plant = await Plant.createPlant(req.body.plant_name, req.body.plant_type, req.body.sun_level, req.body.water_level, req.body.days_to_maturity, req.body.edible, req.body.avg_height, req.body.uploader_id);
         res.send(plant);
+        console.log("Plant created. Name: ", req.body.plant_name);
     } catch (error) {
         res.status(401).send({ message: error.message });
     }
