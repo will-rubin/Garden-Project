@@ -32,6 +32,7 @@ import { RouterLink } from 'vue-router';
 <style scoped>
     nav {
         background-color: #26a69a;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
     }
     .brand-logo {
         font-size: 1.5em;
@@ -52,6 +53,9 @@ import { RouterLink } from 'vue-router';
         color: white;
         text-decoration: none;
     }
-    
 
+    a:hover {
+        text-decoration: underline;
+        color: #36ffeb;
+    }
 </style>

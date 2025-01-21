@@ -12,6 +12,15 @@ router
     }
 })
 
+.get('/getUserById', async (req, res) => {
+    try {
+        const user = await User.getUserById(req.query.id);
+        res.send(user);
+    } catch (error) {
+        res.status(401).send({ message: error.message });
+    }
+})
+
 .get('/userExists', async (req, res) => {
     try {
         const user = await User.userExists(req.query.username);
@@ -31,7 +40,7 @@ router
     }
 })
 
-.post('/register', async (req, res) => {
+.post('/registerUser', async (req, res) => {
     try {
         const { username, password, email, location } = req.body;
         const user = await User.registerUser(username, password, email, location);
@@ -41,7 +50,7 @@ router
     }
 })
 
-.put('/update', async (req, res) => {
+.put('/updateUser', async (req, res) => {
     try {
         const user = await User.updateUser(req.body.username, req.body.password, req.body.email, req.body.location);
         res.send(user);
@@ -50,7 +59,7 @@ router
     }
 })
 
-.delete('/delete', async (req, res) => {
+.delete('/deleteUser', async (req, res) => {
     try {
         const user = await User.deleteUser(req.body.username);
         res.send(user);

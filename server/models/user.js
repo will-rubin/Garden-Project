@@ -114,6 +114,13 @@ async function deleteUser(username) {
     }
 }
 
+// Get a user by id
+async function getUserById(id) {
+    let sql = `SELECT * FROM users WHERE user_id = ?`;
+    let params = [id];
+    return await con.query(sql, params);
+}
+
 module.exports = { 
     getAllUsers, 
     loginUser, 
@@ -122,5 +129,6 @@ module.exports = {
     deleteUser,
     generateToken, 
     verifyToken, 
-    userExists 
+    userExists,
+    getUserById
 };

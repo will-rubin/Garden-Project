@@ -1,11 +1,5 @@
-<script>
-    defineProps({
-        plant: {
-            type: Object,
-            required: true
-        }
-    });
-
+<script setup>
+    defineProps(['plant']);
 </script>
 
 <template>
@@ -29,8 +23,6 @@
 
 <style>
 .card {
-    margin: 1rem;
-    width: 300px;
+    margin: 5px;
 }
-
 </style>

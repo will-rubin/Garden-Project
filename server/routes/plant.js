@@ -31,6 +31,15 @@ router
     }
 })
 
+.get('/getPlantsByUser', async (req, res) => {
+    try {
+        const plants = await Plant.getPlantsByUser(req.query.uploader_id);
+        res.send(plants);
+    } catch (error) {
+        res.status(401).send({ message: error.message });
+    }
+})
+
 .put('/updatePlant', async (req, res) => {
     try {
         const plant = await Plant.updatePlant(req.body.plant_id, req.body.plant_name, req.body.plant_type, req.body.sun_level, req.body.water_level, req.body.days_to_maturity, req.body.edible, req.body.avg_height, req.body.uploader_id);

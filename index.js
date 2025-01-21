@@ -1,6 +1,8 @@
 const express = require("express")
 const app = express()
+
 const path = require('path')
+const https = require('https')
 
 const userRoutes = require("./server/routes/user")
 const gardenRoutes = require("./server/routes/garden")
@@ -17,10 +19,7 @@ app.use(function(req, res, next) {
 });
 
 app.use(express.static(path.join(__dirname, 'client')))
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'client', 'pages', 'index.html')))
-app.get('/account-management', (req, res) => res.sendFile(path.join(__dirname, 'client', 'pages', 'account-management.html')))
-app.get('/garden-management', (req, res) => res.sendFile(path.join(__dirname, 'client', 'pages', 'garden-management.html')))
-app.get('/plant-management', (req, res) => res.sendFile(path.join(__dirname, 'client', 'pages', 'plant-management.html')))
+
 
 app.use('/users', userRoutes)
 app.use('/gardens', gardenRoutes)
