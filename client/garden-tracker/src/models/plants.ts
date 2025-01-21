@@ -37,3 +37,6 @@ export async function getPlantsByUserId(user_id: number): Promise<Plant[]> {
     return await api('plants/getPlantsByUserId', { user_id });
 }
 
+export async function seachPlantsByName(name: string): Promise<Plant[]> {
+    return await api('plants/searchPlantsByName', { name });
+}
