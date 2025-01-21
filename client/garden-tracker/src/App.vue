@@ -9,7 +9,9 @@
   </nav>
   <body>
     <div class="container">
-      <router-view />
+      <Suspense>
+        <router-view />
+      </Suspense>
     </div>
   </body>
 </template>

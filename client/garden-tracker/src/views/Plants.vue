@@ -1,15 +1,14 @@
-<script setup>
+<script setup lang="ts">
     import PlantCard from '../components/PlantCard.vue';
-    import { getPlants, createPlant } from '../models/plants.ts';
+    import { type Plant, getPlants, createPlant } from '../models/plants';
     import { ref } from 'vue';
-    // fake plant data to test display
-    const plants = ref([
-        getPlants().then((response) => response.data
-        .map((plant) => ({
-            ...plant,
-            imageUrl: plant.imageUrl || 'https://via.placeholder.com/150'
-        })))
-    ]);   
+    
+    const plants = ref([] as Plant[])
+
+    await getPlants().then((data) => {
+        plants.value = data;
+    });
+    
 </script>
 
 
@@ -22,7 +21,13 @@
             <div class="plant-form">
             </div>
         </div>
+        <!-- Plant Cards -->
         <div class="column is-four-fifths">
+            <div class="columns is-multiline">
+                <div class="column is-one-third" v-for="plant in plants" :key="plant.id">
+                    <PlantCard :plant="plant" />
+                </div>
+            </div>
         </div>
     </div>
 </template>

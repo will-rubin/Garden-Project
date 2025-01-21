@@ -4,17 +4,15 @@
 
 <template>
 <div class="card">
-    <div class="card-image">
-        <figure class="image is-4by3">
-            <img :src="plant.imageUrl" alt="Plant image">
-        </figure>
-    </div>
     <div class="card-content">
-        <div class="media">
-            <div class="media-content">
-                <p class="title is-4">{{ plant.name }}</p>
-                <p class="subtitle is-6">{{ plant.species }}</p>
-            </div>
+        <div class="content">
+            <p><strong>Name:</strong> {{ plant.plant_name }}</p>
+            <p><strong>Type:</strong> {{ plant.plant_type }}</p>
+            <p><strong>Sun Level:</strong> {{ plant.sun_level }}</p>
+            <p><strong>Water Level:</strong> {{ plant.water_level }}</p>
+            <p><strong>Days to Maturity:</strong> {{ plant.days_to_maturity }}</p>
+            <p><strong>Edible:</strong> {{ plant.edible }}</p>
+            <p><strong>Average Height:</strong> {{ plant.avg_height }} inches</p>
         </div>
     </div>
 </div>
