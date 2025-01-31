@@ -1,4 +1,4 @@
-import { api } from './myFetch';
+import { sessionAPI } from './session';
 
 export interface Plant {
     plant_id: number;
@@ -13,30 +13,30 @@ export interface Plant {
 }
 
 export async function getPlants(): Promise<Plant[]> {
-    return await api('plants/getAllPlants');
+    return await sessionAPI('plants/getAllPlants');
 }
 
 
 export async function createPlant(plant: Plant): Promise<Plant> {
-    return await api('plants/createPlant', plant);
+    return await sessionAPI('plants/createPlant', plant);
 }
 
 export async function updatePlant(plant: Plant): Promise<Plant> {
-    return await api('plants/updatePlant', plant);
+    return await sessionAPI('plants/updatePlant', plant);
 }
 
 export async function deletePlant(plant_id: number): Promise<void> {
-    return await api('plants/deletePlant', { plant_id });
+    return await sessionAPI('plants/deletePlant', { plant_id });
 }
 
 export async function getPlantById(plant_id: number): Promise<Plant> {
-    return await api('plants/readPlant', { plant_id });
+    return await sessionAPI('plants/readPlant', { plant_id });
 }
 
 export async function getPlantsByUserId(user_id: number): Promise<Plant[]> {
-    return await api('plants/getPlantsByUserId', { user_id });
+    return await sessionAPI('plants/getPlantsByUserId', { user_id });
 }
 
 export async function seachPlantsByName(name: string): Promise<Plant[]> {
-    return await api('plants/searchPlantsByName', { name });
+    return await sessionAPI('plants/searchPlantsByName', { name });
 }

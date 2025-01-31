@@ -38,30 +38,38 @@ async function getAllUsers() {
 async function userExists(username) {
     let sql = `SELECT * FROM users WHERE username = ?`;
     let params = [username];
-    if (await con.query(sql, params).length > 0) {
-        return true;
+    const user = await con.query(sql, params);
+    if (user.length > 0) {
+        return user[0];
     } else {
         return false;
-    }   
+    }
 }
 
 // Login function
 async function loginUser(username, password) {
-    // Check if the user exists
-    if (await userExists(username)) {
-        // Get the user's hashed password
-        let sql = `SELECT password FROM users WHERE username = ?`;
-        let params = [username];
-        let hashedPassword = (await con.query(sql, params))[0].password;
-        // Compare the user's password with the hashed password
-        if (await bcrypt.compare(password, hashedPassword)) {
-            return true;
-        } else {
-            throw new Error('Incorrect password');
-        }
-    } else {
-        throw new Error('User does not exist');
+
+    //Validate input
+    if (!username || !password) {
+        throw new Error('Username and password are required');
     }
+
+    // Check if the user exists
+    const user = await userExists(username);
+    
+    // Get the user's hashed password
+    let sql = `SELECT password FROM users WHERE username = ?`;
+    let params = [username];
+    let hashedPassword = (await con.query(sql, params))[0].password;
+
+    // Compare the user's password with the hashed password
+    const isPasswordValid = await bcrypt.compare(password, hashedPassword);
+    if (!isPasswordValid) {
+        throw new Error('Invalid password');
+    }
+
+    // Return the password-sanitized user
+    return { password: undefined, ...user };
 }
 
 // Register function
@@ -74,10 +82,10 @@ async function registerUser(username, password, email, location) {
     let sql = `INSERT INTO users (username, password, email, location, date_created) VALUES (?, ?, ?, ?, ?)`;
     let date = new Date().toISOString().slice(0, 19).replace('T', ' ');
     // Hash the user's password
-    //const saltRounds = 10;
-    //let hashedPassword = await bcrypt.hash(password, saltRounds);
+    const saltRounds = 10;
+    let hashedPassword = await bcrypt.hash(password, saltRounds);
     // Assemble params
-    let params = [username, password, email, location, date];
+    let params = [username, hashedPassword, email, location, date];
     // Execute the query
     return await con.query(sql, params);
 }

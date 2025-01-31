@@ -1,4 +1,4 @@
-import { api } from './myFetch'
+import { sessionAPI } from './session'
 
 export interface Garden {
     garden_id: number;
@@ -9,21 +9,21 @@ export interface Garden {
 }
 
 export async function getGardens() {
-    return api('gardens/getAllGardens')
+    return sessionAPI('gardens/getAllGardens')
 }
 
 export async function getGarden(garden_id: number) {
-    return api('gardens/readGarden', { garden_id })
+    return sessionAPI('gardens/readGarden', { garden_id })
 }
 
 export async function createGarden(garden: Garden) {
-    return api('gardens/createGarden', garden)
+    return sessionAPI('gardens/createGarden', garden)
 }
 
 export async function deleteGarden(garden_id: number) {
-    return api('gardens/deleteGarden', { garden_id })
+    return sessionAPI('gardens/deleteGarden', { garden_id })
 }
 
 export async function updateGarden(garden: Garden) {
-    return api('gardens/updateGarden', garden)
+    return sessionAPI('gardens/updateGarden', garden)
 }

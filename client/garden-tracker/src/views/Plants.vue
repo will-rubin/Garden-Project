@@ -34,7 +34,11 @@
     const searchPlantName = ref('');
     const searchPlants = async () => {
         await seachPlantsByName(searchPlantName.value).then((data) => {
-            plants.value = data;
+            if (data.length === 0) {
+                alert('No results matched');
+            } else {
+                plants.value = data;
+            }
         });
     };
 
@@ -137,6 +141,7 @@
         margin-bottom: 20px;
         text-align: center;
         color: white;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
     }
 
     div.search-form {

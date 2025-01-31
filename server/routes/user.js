@@ -34,7 +34,7 @@ router
     try {
         const user = await User.login(req.body.username, req.body.password);
         const token = await User.generateToken(user);
-        res.send(token);
+        res.send(user, token);
     } catch (error) {
         res.status(401).send({ message: error.message });
     }
@@ -45,6 +45,7 @@ router
         const { username, password, email, location } = req.body;
         const user = await User.registerUser(username, password, email, location);
         res.send(...user, password = undefined);
+        console.log("New user registered: ", user);
     } catch (error) {
         res.status(401).send({ message: error.message });
     }
