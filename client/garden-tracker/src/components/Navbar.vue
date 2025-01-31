@@ -2,12 +2,25 @@
 
 import { RouterLink } from 'vue-router';
 import { ref } from 'vue';
-import { session as sessionModel } from '../models/session';
-import LoginForm from './LoginForm.vue';
+import { getSession, login } from '../models/session';
+import UserBadge from './UserBadge.vue';
 
 const loginIsVisible = ref(false);
 
-const session = ref(sessionModel);
+let session = await getSession();
+
+const username = ref('');
+const password = ref('');
+
+const loginUser = async() => {
+    if (!username.value || !password.value) {
+        return;
+    } else {
+        await login(username.value, password.value);
+        session = await getSession();
+    }
+
+};
 
 </script>
 
@@ -69,7 +82,7 @@ const session = ref(sessionModel);
             </div>
             <div class="navbar-end">
                 <div class="navbar-item" v-if="session.user">
-                    <!-- Logout button and welcome message for user -->
+                    <UserBadge />
                 </div>
                 <div class="navbar-item" v-if="!session.user">
                     <button class="button is-primary" @click="loginIsVisible = !loginIsVisible">
@@ -83,15 +96,38 @@ const session = ref(sessionModel);
                     <button class="button is-primary is-inverted">
                         <span>Register</span>
                     </button>
-            
                 </div>
             </div>
         </div>
     </nav>
-    <div class="modal-overlay" v-if="loginIsVisible" @click="loginIsVisible = false">
+    <div class="modal-overlay" v-if="loginIsVisible">
         <div class="modal-content">
-            <login-form />
+            <section class="login-section">
+                <div class="container" id="login-form">
+                    <h1 class="title">Login to your account</h1>
+                    <form @submit.prevent="loginUser">
+                        <div class="field" id="username-field">
+                            <label class="label">Username</label>
+                            <div class="control">
+                                <input class="input" type="text" v-model="username" required>
+                            </div>
+                        </div>
+                        <div class="field" id="password-field">
+                            <label class="label">Password</label>
+                            <div class="control">
+                                <input class="input" type="password" v-model="password" required>
+                            </div>
+                        </div>
+                        <div class="field" id="submit-field">
+                            <div class="control">
+                                <button class="button is-primary is-large" type="submit">Login</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
         </div>
+        <button class="button is-danger" @click="loginIsVisible = false">Close</button>
     </div>
 </template>
 
@@ -142,5 +178,21 @@ const session = ref(sessionModel);
 
     .modal-content {
         top: 25%;
-    }    
+    }   
+    
+    #login-form {
+        max-width: 40%;
+        background-color: #26a69a;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+        border-radius:20px;
+    }
+
+    .field {
+        margin: 20px;
+        padding: 10px;
+    }
+
+    #submit-field {
+        text-align: center;
+    }
 </style>

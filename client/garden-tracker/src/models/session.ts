@@ -2,12 +2,16 @@ import { reactive } from "vue";
 import type { User } from "./users";
 import { api } from "./myFetch"
 
-export const session = reactive({
+const session = reactive({
     user: null as User | null,
     token: null as string | null,
     loading: 0,
     redirectURL: null as string | null,
 });
+
+export async function getSession() {
+    return session;
+}
 
 export function sessionAPI(action: string, body?: unknown, method?: string, headers?: any) {
     console.log("session.ts api action: " + action)
@@ -25,10 +29,22 @@ export function sessionAPI(action: string, body?: unknown, method?: string, head
 }
 
 export async function login(username: string, password: string) {
+    console.log("session login triggered")
     try {
         const { user, token } = await sessionAPI('users/login', { username, password });
+        console.log("session.ts login user: " + username)
         session.user = user;
         session.token = token;
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+export async function logout() {
+    console.log("session logout triggered")
+    try {
+        session.user = null;
+        session.token = null;
     } catch (e) {
         console.error(e);
     }

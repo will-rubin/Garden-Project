@@ -5,14 +5,14 @@
 
 <template>
   <nav>
-    <Navbar />
+    <Suspense>
+      <Navbar />
+    </Suspense>
   </nav>
   <body>
-    <div class="container">
-      <Suspense>
-        <router-view />
-      </Suspense>
-    </div>
+    <Suspense>
+      <router-view />
+    </Suspense>
   </body>
 </template>
 

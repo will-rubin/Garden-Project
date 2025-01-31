@@ -32,9 +32,11 @@ router
 
 .post('/login', async (req, res) => {
     try {
-        const user = await User.login(req.body.username, req.body.password);
+        const user = await User.loginUser(req.body.username, req.body.password);
+        user.password = undefined;
+        console.log("user logged in: ", user);
         const token = await User.generateToken(user);
-        res.send(user, token);
+        res.send({ user, token });
     } catch (error) {
         res.status(401).send({ message: error.message });
     }
@@ -42,13 +44,10 @@ router
 
 .post('/registerUser', async (req, res) => {
     try {
-        const { username, password, email, location } = req.body;
-        const user = await User.registerUser(username, password, email, location);
-        res.send(...user, password = undefined);
-        console.log("New user registered: ", user);
+        await User.registerUser(req.body.username, req.body.password, req.body.email, req.body.location);  
     } catch (error) {
         res.status(401).send({ message: error.message });
-    }
+    }   
 })
 
 .put('/updateUser', async (req, res) => {

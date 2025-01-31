@@ -1,4 +1,4 @@
-import { api } from './myFetch';
+import { sessionAPI } from './session';
 
 export interface User {
     user_id: number;
@@ -10,25 +10,21 @@ export interface User {
 }
 
 export async function getUsers(): Promise<User[]> {
-    return await api('users/getAllUsers');
+    return await sessionAPI('users/getAllUsers');
 }
 
 export async function getUser(id: number): Promise<User> {
-    return await api(`users/getUserById/${id}`);
-}
-
-export async function login(username: string, password: string): Promise<User> {
-    return await api('users/login', { username, password });
+    return await sessionAPI(`users/getUserById/${id}`);
 }
 
 export async function register(username: string, password: string, email: string, location: string): Promise<User> {
-    return await api('users/register', { username, password, email, location });
+    return await sessionAPI('users/registerUser', { username, password, email, location });
 }
 
 export async function updateUser(id: number, username: string, email: string, location: string): Promise<User> {
-    return await api('users/updateUser', { id, username, email, location });
+    return await sessionAPI('users/updateUser', { id, username, email, location });
 }
 
 export async function deleteUser(id: number): Promise<void> {
-    return await api('users/deleteUser', { id });
+    return await sessionAPI('users/deleteUser', { id });
 }

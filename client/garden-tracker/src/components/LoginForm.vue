@@ -1,12 +1,19 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { login } from '../models/session'
+import { login } from '../models/session';
+
+defineProps(['loginIsVisible']);
 
 const username = ref('');
 const password = ref('');
 
 const loginUser = async() => {
-    await login(username.value, password.value);
+    if (!username.value || !password.value) {
+        return;
+    } else {
+        await login(username.value, password.value);
+    }
+
 };
 
 </script>
@@ -39,10 +46,6 @@ const loginUser = async() => {
             </form>
         </div>
     </section>
-    <section class="register-section">
-        
-    </section>
-<!-- Section to display user account information -->
 </template>
 
 <style scoped>
