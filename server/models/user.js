@@ -2,6 +2,8 @@ const con = require('./db_connect');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const { getLatLong } = require('./weather');
+
 // Functions to generate and verify JWT tokens
 function generateToken(user) {
     return jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -74,18 +76,29 @@ async function loginUser(username, password) {
 
 // Register function
 async function registerUser(username, password, email, location) {
+    
     // Check if the user already exists
     if (await userExists(username)) {
         throw new Error('User already exists');
     }
-    // Insert the user into the database
-    let sql = `INSERT INTO users (username, password, email, location, date_created) VALUES (?, ?, ?, ?, ?)`;
+
+    // Sanitize the location by using the weather model
+    const sanitizedLocation = await getLatLong(location);
+    
+    // Convert the sanitized location to a CSV string
+    const locationCSV = `${sanitizedLocation.latitude},${sanitizedLocation.longitude}`;
+
+    // Get the current date 
     let date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
     // Hash the user's password
     const saltRounds = 10;
     let hashedPassword = await bcrypt.hash(password, saltRounds);
-    // Assemble params
+
+    // Assemble params and SQL query
+    let sql = `INSERT INTO users (username, password, email, locationCSV, date_created) VALUES (?, ?, ?, ?, ?)`;
     let params = [username, hashedPassword, email, location, date];
+
     // Execute the query
     return await con.query(sql, params);
 }

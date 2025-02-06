@@ -2,7 +2,11 @@
     import PlantCard from '../components/PlantCard.vue';
     import { type Plant, getPlants, createPlant, seachPlantsByName } from '../models/plants';
     import { ref } from 'vue';
+    import { getSession } from '../models/session';
     
+    // load session
+    const session = await getSession();
+
     // load plant data
     const plants = ref([] as Plant[])
 
@@ -12,7 +16,6 @@
 
     // add new plant
     const newPlant = ref({
-        plant_id: 0,
         plant_name: '',
         plant_type: '',
         sun_level: 0,
@@ -20,11 +23,20 @@
         days_to_maturity: 0,
         edible: '',
         avg_height: 0,
-        uploader_id: 0
+        uploader_id: session.user ? session.user.user_id : 0
     });
 
     const submitForm = async () => {
-        await createPlant(newPlant.value);
+        await createPlant(
+            newPlant.value.plant_name,
+            newPlant.value.plant_type,
+            newPlant.value.sun_level,
+            newPlant.value.water_level,
+            newPlant.value.days_to_maturity,
+            newPlant.value.edible,
+            newPlant.value.avg_height,
+            newPlant.value.uploader_id
+        );
         await getPlants().then((data) => {
             plants.value = data;
         });
@@ -109,12 +121,6 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label class="label">Uploader ID</label>
-                            <div class="control">
-                            <input class="input" type="number" v-model="newPlant.uploader_id" required />
-                            </div>
-                        </div>
-                        <div class="field">
                             <div class="control">
                             <button class="button is-primary" type="submit">Add Plant</button>
                             </div>
@@ -149,11 +155,12 @@
         background-color: #26a69a;
         border-radius: 5px;
         box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-        margin-bottom: 20px;
+        margin: 20px;
     }
 
     div.plant-form {
         padding: 20px;
+        margin: 20px;
         background-color: #26a69a;
         border-radius: 5px;
         box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);

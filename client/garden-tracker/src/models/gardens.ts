@@ -16,8 +16,12 @@ export async function getGarden(garden_id: number) {
     return sessionAPI('gardens/readGarden', { garden_id })
 }
 
-export async function createGarden(garden: Garden) {
-    return sessionAPI('gardens/createGarden', garden)
+export async function getGardensByUser(owner_id: number) {
+    return sessionAPI('gardens/selectGardensByOwnerId', { owner_id })
+}
+
+export async function createGarden(garden_name: string, location: string, sun_level: number, owner_id: number) {
+    return sessionAPI('gardens/createGarden', { garden_name, location, sun_level, owner_id })
 }
 
 export async function deleteGarden(garden_id: number) {

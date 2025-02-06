@@ -42,6 +42,13 @@ async function readGarden(garden_id) {
     return await con.query(sql, params);
 }
 
+// Select gardens by owner_id
+async function selectGardensByOwnerId(owner_id) {
+    let sql = `SELECT * FROM gardens WHERE owner_id = ?`;
+    let params = [owner_id];
+    return await con.query(sql, params);
+}
+
 // Update a garden
 async function updateGarden(garden_id, sun_level, location, owner_id, garden_name) {
     let sql = `UPDATE gardens SET sun_level = ?, location = ?, owner_id = ?, garden_name = ? WHERE garden_id = ?`;
@@ -60,6 +67,7 @@ module.exports = {
     getAllGardens,
     createGarden,
     readGarden,
+    selectGardensByOwnerId,
     updateGarden,
     deleteGarden
 }

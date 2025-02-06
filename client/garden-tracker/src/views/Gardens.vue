@@ -1,29 +1,37 @@
 <script setup lang="ts">
     import gardenCard from '../components/gardenCard.vue';
-    import { type Garden, getGardens, createGarden } from '../models/gardens';
+    import { type Garden, getGardensByUser, createGarden } from '../models/gardens';
     import { ref } from 'vue';
+    import { getSession } from '../models/session';
+
+    // load session data
+    let session = await getSession();
     
     // load garden data
-    const gardens = ref([] as Garden[])
+    let gardens = ref([] as Garden[])
+    
+    const refreshGardens = async () => {
+        gardens.value = await getGardensByUser(session.user ? session.user.user_id : 0);
+    };
 
-    await getGardens().then((data) => {
-        gardens.value = data;
-    });
+    await refreshGardens();
 
     // add new garden
     const newGarden = ref({
-        garden_id: 0,
-        sun_level: 0,
+        garden_name: '',
         location: '',
-        owner_id: 0,
-        garden_name: ''
+        sun_level: 0,
+        owner_id: session.user ? session.user.user_id : 0,
+        
     });
 
     const submitForm = async () => {
-        await createGarden(newGarden.value);
-        await getGardens().then((data) => {
-            gardens.value = data;
-        });
+        await createGarden(
+            newGarden.value.garden_name,
+            newGarden.value.location,
+            newGarden.value.sun_level,
+            newGarden.value.owner_id
+        );
     };
 </script>
 
@@ -32,7 +40,15 @@
     <header>
         <h1 class="title">Gardens</h1>
     </header>
-    <div class="columns">
+    <article class="message is-danger" v-if="!session.user">
+        <div class="message-header">
+            <p>You must be logged in to view and create gardens!</p>
+        </div>
+        <div class="message-body">
+            Login or register through the navigation bar above in order to see, edit and create gardens.
+        </div>
+    </article>
+    <div class="columns" v-if="session.user">
         <div class="column is-one-fifth">
             <!-- garden Form -->
             <div class="garden-form">
@@ -46,23 +62,17 @@
                             </div>
                         </div>
                         <div class="field">
-                            <label class="label">Sun Level</label>
-                            <div class="control">
-                            <input class="input" type="number" v-model="newGarden.sun_level" required />
-                            </div>
-                        </div>
-                        <div class="field">
                             <label class="label">Location</label>
                             <div class="control">
                             <input class="input" type="text" v-model="newGarden.location" required />
                             </div>
                         </div>
                         <div class="field">
-                            <label class="label">Owner ID</label>
+                            <label class="label">Sun Level</label>
                             <div class="control">
-                            <input class="input" type="number" v-model="newGarden.owner_id" required />
+                            <input class="input" type="number" v-model="newGarden.sun_level" required />
                             </div>
-                        </div>
+                        </div>                        
                         <div class="field">
                             <div class="control">
                             <button class="button is-primary" type="submit">Add garden</button>
@@ -83,7 +93,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
     h1.title {
         font-size: 2em;
         margin-top: 20px;
@@ -102,6 +112,7 @@
     }
 
     div.garden-form {
+        margin-left: 20px;
         padding: 20px;
         background-color: #26a69a;
         border-radius: 5px;
@@ -127,5 +138,10 @@
     summary:hover {
         text-decoration: underline;
         color: #36ffeb;
+    }
+
+    article {
+        max-width: 40%;
+        margin: auto;
     }
 </style>

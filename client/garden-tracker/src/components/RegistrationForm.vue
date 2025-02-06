@@ -5,10 +5,17 @@ import { register } from '../models/users'
 const username = ref('');
 const password = ref('');
 const email = ref('');
-const location = ref('');
+
+
+const locationCity = ref('');
+const locationState = ref('');
+const locationCountry = ref('');
+
+
 
 const registerUser = async() => {
-    await register(username.value, password.value, email.value, location.value);
+    const location = `${locationCity.value}, ${locationState.value}, ${locationCountry.value}`;
+    await register(username.value, password.value, email.value, location );
 };
 </script>
 <template>
@@ -39,13 +46,28 @@ const registerUser = async() => {
                     </div>
                 </div>
 
-                <div class="field" id="location-field">
-                    <label class="label">Location</label>
-                    <div class="control">
-                        <input class="input" type="text" v-model="location" required>
+                <div class="field is-grouped-centered" id="location-field">
+                    <div class="columns">
+                        <div class="column">
+                            <label class="label">City</label>
+                            <div class="control">
+                                <input class="input" type="text" v-model="locationCity" required>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <label class="label">State</label>
+                            <div class="control">
+                                <input class="input" type="text" v-model="locationState" required>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <label class="label">Country</label>
+                            <div class="control">
+                                <input class="input" type="text" v-model="locationCountry" required>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
                 <div class="field" id="submit-field">
                     <div class="control">
                         <button class="button is-primary is-large" type="submit">Register</button>
@@ -59,7 +81,7 @@ const registerUser = async() => {
 
 <style scoped>
     #register-form {
-        max-width: 40%;
+        max-width: 50%;
         background-color: #26a69a;
         box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
         border-radius:20px;

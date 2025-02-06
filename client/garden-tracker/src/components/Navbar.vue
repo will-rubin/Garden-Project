@@ -6,6 +6,7 @@ import { getSession, login } from '../models/session';
 import UserBadge from './UserBadge.vue';
 
 const loginIsVisible = ref(false);
+const alertIsVisible = ref(false);
 
 let session = await getSession();
 
@@ -16,8 +17,17 @@ const loginUser = async() => {
     if (!username.value || !password.value) {
         return;
     } else {
-        await login(username.value, password.value);
-        session = await getSession();
+        try {
+            await login(username.value, password.value);
+            if (session.user) {
+                loginIsVisible.value = false;
+            } else {
+                console.error('Login failed: No user returned');
+                alertIsVisible.value = true;
+            }
+        } catch (error) {
+            console.error('Login failed:', error);
+        }
     }
 
 };
@@ -125,6 +135,12 @@ const loginUser = async() => {
                         </div>
                     </form>
                 </div>
+                <div class="container" id="login-alert" v-if="alertIsVisible">
+                    <div class="notification is-danger">
+                        <button class="delete" @click="alertIsVisible = false"></button>
+                        Invalid username or password.
+                    </div>
+                </div>
             </section>
         </div>
         <button class="button is-danger" @click="loginIsVisible = false">Close</button>
@@ -135,6 +151,7 @@ const loginUser = async() => {
     nav {
         background-color: #26a69a;
         box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+        height: 10%;
     }
 
     .navbar {
@@ -143,8 +160,7 @@ const loginUser = async() => {
 
     .navbar-brand a {
         font-size: 2em;
-        margin-left: 20px;
-        margin-top: 10px;
+        margin: 10px;
     }
     
     li {
@@ -195,4 +211,5 @@ const loginUser = async() => {
     #submit-field {
         text-align: center;
     }
+
 </style>
