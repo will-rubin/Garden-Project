@@ -45,6 +45,12 @@
     // search for a plant
     const searchPlantName = ref('');
     const searchPlants = async () => {
+        if (searchPlantName.value === '') {
+            await getPlants().then((data) => {
+                plants.value = data;
+            });
+            return;
+        }
         await seachPlantsByName(searchPlantName.value).then((data) => {
             if (data.length === 0) {
                 alert('No results matched');
@@ -74,9 +80,9 @@
                 </div>
             </div>
             <!-- Plant Form -->
-            <div class="plant-form">
+            <div class="plant-form" v-if="session.user">
                 <details>
-                    <summary>Click to add a new plant</summary>
+                    <summary>Add a new plant</summary>
                     <form @submit.prevent="submitForm">
                         <div class="field">
                             <label class="label">Plant Name</label>
