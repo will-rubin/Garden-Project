@@ -60,10 +60,18 @@ async function deletePlant(plant_id) {
     return await con.query(sql, params);
 }
 
+// Search for plants by name
+async function searchPlantsByName(plant_name) {
+    let sql = `SELECT * FROM plants WHERE plant_name LIKE ?`;
+    let params = [plant_name];
+    return await con.query(sql, params);
+}
+
 module.exports = {
     getAllPlants,
     createPlant,
     readPlant,
     updatePlant,
-    deletePlant
+    deletePlant,
+    searchPlantsByName
 }

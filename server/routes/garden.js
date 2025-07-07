@@ -21,10 +21,21 @@ router
     }
 })
 
+.post('/selectGardensByOwnerId', async (req, res) => {
+    try {
+        const gardens = await Garden.selectGardensByOwnerId(req.body.owner_id);
+        res.send(gardens);
+        console.log("Gardens selected by owner id: " + req.body.owner_id);
+    } catch (error) {
+        res.status(401).send({ message: error.message });
+    }
+})
+
 .post('/createGarden', async (req, res) => {
     try {
         const garden = await Garden.createGarden(req.body.sun_level, req.body.location, req.body.owner_id, req.body.garden_name);
         res.send(garden);
+        console.log("Garden created by: " + req.body.owner_id + " with garden id: " + garden.garden_id);
     } catch (error) {
         res.status(401).send({ message: error.message });
     }

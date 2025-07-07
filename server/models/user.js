@@ -2,6 +2,8 @@ const con = require('./db_connect');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
+const { getLatLong } = require('./weather');
+
 // Functions to generate and verify JWT tokens
 function generateToken(user) {
     return jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -38,46 +40,65 @@ async function getAllUsers() {
 async function userExists(username) {
     let sql = `SELECT * FROM users WHERE username = ?`;
     let params = [username];
-    if (await con.query(sql, params).length > 0) {
-        return true;
+    const user = await con.query(sql, params);
+    if (user.length > 0) {
+        return user[0];
     } else {
         return false;
-    }   
+    }
 }
 
 // Login function
 async function loginUser(username, password) {
-    // Check if the user exists
-    if (await userExists(username)) {
-        // Get the user's hashed password
-        let sql = `SELECT password FROM users WHERE username = ?`;
-        let params = [username];
-        let hashedPassword = (await con.query(sql, params))[0].password;
-        // Compare the user's password with the hashed password
-        if (await bcrypt.compare(password, hashedPassword)) {
-            return true;
-        } else {
-            throw new Error('Incorrect password');
-        }
-    } else {
-        throw new Error('User does not exist');
+
+    //Validate input
+    if (!username || !password) {
+        throw new Error('Username and password are required');
     }
+
+    // Check if the user exists
+    const user = await userExists(username);
+    
+    // Get the user's hashed password
+    let sql = `SELECT password FROM users WHERE username = ?`;
+    let params = [username];
+    let hashedPassword = (await con.query(sql, params))[0].password;
+
+    // Compare the user's password with the hashed password
+    const isPasswordValid = await bcrypt.compare(password, hashedPassword);
+    if (!isPasswordValid) {
+        throw new Error('Invalid password');
+    }
+
+    // Return the password-sanitized user
+    return { password: undefined, ...user };
 }
 
 // Register function
 async function registerUser(username, password, email, location) {
+    
     // Check if the user already exists
     if (await userExists(username)) {
         throw new Error('User already exists');
     }
-    // Insert the user into the database
-    let sql = `INSERT INTO users (username, password, email, location, date_created) VALUES (?, ?, ?, ?, ?)`;
+
+    // Sanitize the location by using the weather model
+    const sanitizedLocation = await getLatLong(location);
+    
+    // Convert the sanitized location to a CSV string
+    const locationCSV = `${sanitizedLocation.latitude},${sanitizedLocation.longitude}`;
+
+    // Get the current date 
     let date = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
     // Hash the user's password
-    //const saltRounds = 10;
-    //let hashedPassword = await bcrypt.hash(password, saltRounds);
-    // Assemble params
-    let params = [username, password, email, location, date];
+    const saltRounds = 10;
+    let hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    // Assemble params and SQL query
+    let sql = `INSERT INTO users (username, password, email, locationCSV, date_created) VALUES (?, ?, ?, ?, ?)`;
+    let params = [username, hashedPassword, email, location, date];
+
     // Execute the query
     return await con.query(sql, params);
 }
@@ -114,6 +135,13 @@ async function deleteUser(username) {
     }
 }
 
+// Get a user by id
+async function getUserById(id) {
+    let sql = `SELECT * FROM users WHERE user_id = ?`;
+    let params = [id];
+    return await con.query(sql, params);
+}
+
 module.exports = { 
     getAllUsers, 
     loginUser, 
@@ -122,5 +150,6 @@ module.exports = {
     deleteUser,
     generateToken, 
     verifyToken, 
-    userExists 
+    userExists,
+    getUserById
 };
