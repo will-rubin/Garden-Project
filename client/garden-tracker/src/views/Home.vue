@@ -11,8 +11,11 @@ const weather = ref(null);
 
 const loadData = async () => {
     const session = await getSession();
-    if (session && session.user) {
-    }
+    //if (session && session.user) {
+        //retrieve the weather data for the user's location
+        //weather = await getWeather(session.user.location);
+        
+    //}
 };
 
 loadData();
@@ -26,7 +29,7 @@ loadData();
 
     <div class="columns">
         <div class="column is-one-third">
-            <WeatherCard :weather="weather" />
+
         </div>
         <div class="column is-two-thirds">
             <GardenCard v-for="garden in gardens" :key="garden.garden_id" :garden="garden" />

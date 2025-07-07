@@ -11,12 +11,44 @@
     </div>
     <div class="card-content">
         <div class="content">
-            <p><strong>Type:</strong> {{ plant.plant_type }}</p>
-            <p><strong>Sun Level:</strong> {{ plant.sun_level }}</p>
-            <p><strong>Water Level:</strong> {{ plant.water_level }}</p>
-            <p><strong>Days to Maturity:</strong> {{ plant.days_to_maturity }}</p>
-            <p><strong>Edible:</strong> {{ plant.edible }}</p>
-            <p><strong>Average Height:</strong> {{ plant.avg_height }} inches</p>
+            <div class="table-container">
+                <table class="table is-striped is-hoverable is-fullwidth">
+                    <tbody>
+                        <tr>
+                            <td>Name</td>
+                            <td>{{ plant.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Plant ID</td>
+                            <td>{{ plant.plant_id }}</td>
+                        </tr>
+                        <tr>
+                            <td>Type</td>
+                            <td>{{ plant.plant_type }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sun Level</td>
+                            <td>{{ plant.sun_level }}</td>
+                        </tr>
+                        <tr>
+                            <td>Water Level</td>
+                            <td>{{ plant.water_level }}</td>
+                        </tr>
+                        <tr>
+                            <td>Days to Maturity</td>
+                            <td>{{ plant.days_to_maturity }}</td>
+                        </tr>
+                        <tr>
+                            <td>Edible</td>
+                            <td>{{ plant.edible }}</td>
+                        </tr>
+                        <tr>
+                            <td>Average Height</td>
+                            <td>{{ plant.avg_height }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

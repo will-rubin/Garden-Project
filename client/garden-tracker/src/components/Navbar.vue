@@ -103,7 +103,7 @@ const loginUser = async() => {
                     </button>
                 </div>
                 <div class="navbar-item" v-if="!session.user">
-                    <button class="button is-primary is-inverted">
+                    <button class="button is-primary">
                         <span>Register</span>
                     </button>
                 </div>

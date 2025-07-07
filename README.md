@@ -1,5 +1,5 @@
 # Welcome to the Garden Tracker!
-This project is a SQL based client and server website.
+This project is a Vue and SQL based client and server website.
 Users are able to add their location, at which point they will be shown a real time, updated weather forecast for their location.
 Users may create gardens, which are entities whose location and weather history are tracked as well.
 Users may upload plants to the database, and then arrange gardens consisting of collections of plants.
@@ -9,12 +9,13 @@ Users may upload plants to the database, and then arrange gardens consisting of 
 
 ## Frontend
 > The frontend framework consists of a classic Vue, TypeScript, and Vite stack. Users, once signed in and verified, can engage with various elements of the site to trigger responses from the backend.
+
+## Weather
+> How is data for front end weather display loaded and parsed? Once the user logs in, the location data that is recorded by the user and stored in the user entity data is automatically retrieved by the backend. This location data is formatted into an external API call, which accesses the OpenWeather One Call API. Once the relevant data has been received from OpenWeather, the backend will parse and filter the data to be easily displayed in the front end component. However, we do not want users to continuously refresh the home page, sending many external API calls (which is costly).
+
 ## Entity Relationship Diagram
 Detailing the parameters and type requirements of the entities of the site.
 ![alt text](./client/images/erd.png)
-
-## Weather
-> How is data for front end weather display loaded? Once the user is logged into their account and loads the home page, a request is sent to the backend to retrieve the current weather information for the user's location. This data is filtered and displayed in the frontend.
 
 ## Relationship Diagram
 Here we see how the various entities that comprise the site relate to each other. The user and the garden entity tend to receive and generate the most action, while the plants are used mainly as a reference.
